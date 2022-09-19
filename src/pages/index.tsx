@@ -1,11 +1,14 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { trpc } from '../utils/trpc'
 
 const Home: NextPage = () => {
+  const router = useRouter()
   const { data } = trpc.useQuery(['students.getAll'])
 
   const handleClick = (id: number) => {
     console.log(id);
+    router.push('/thankYou')
   }
 
   return (
