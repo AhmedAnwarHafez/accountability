@@ -1,28 +1,29 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { trpc } from '../utils/trpc'
 
 const Home: NextPage = () => {
-  const router = useRouter()
   const { data } = trpc.useQuery(['students.getAll'])
   const mutation = trpc.useMutation('students.attend')
 
   const handleClick = (id: number) => {
-    mutation.mutate({id })
-    router.push('/thankYou')
+    mutation.mutate({ id })
   }
 
   return (
     <>
-      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
-        <h1 className="text-2xl md:text-2xl leading-normal font-extrabold text-gray-700">
-          Morning accountab
-        </h1>
+      <h1 className="text-2xl md:text-2xl text-center mt-10 leading-normal font-extrabold text-gray-700">
+        morning accountability
+      </h1>
+      <main className="container mx-auto flex flex-col items-center justify-around min-h-screen p-4">
         <section>
-          <ul>
+          <ul className="flex flex-col">
             {data?.map(({ id, name }) => (
-              <li key={id}>
-                <button onClick={() => handleClick(id)}>{name}</button>
+              <li
+                key={id}
+                className="text-3xl text-center rounded-lg p-10 my-5 border-2 border-solid border-slate-600"
+                onClick={() => handleClick(id)}
+              >
+                {name}
               </li>
             ))}
           </ul>
