@@ -21,6 +21,8 @@ export const studentsRouter = createRouter()
   })
   .query('getAll', {
     async resolve({ ctx }) {
-      return await ctx.prisma.students.findMany()
+      return await ctx.prisma.students.findMany({
+        orderBy: [{ name: 'asc' }],
+      })
     },
   })
