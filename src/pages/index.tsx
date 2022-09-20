@@ -5,9 +5,10 @@ import { trpc } from '../utils/trpc'
 const Home: NextPage = () => {
   const router = useRouter()
   const { data } = trpc.useQuery(['students.getAll'])
+  const mutation = trpc.useMutation('students.attend')
 
   const handleClick = (id: number) => {
-    console.log(id);
+    mutation.mutate({id })
     router.push('/thankYou')
   }
 
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
     <>
       <main className="container mx-auto flex flex-col items-center justify-center min-h-screen p-4">
         <h1 className="text-2xl md:text-2xl leading-normal font-extrabold text-gray-700">
-          Morning accountability
+          Morning accountab
         </h1>
         <section>
           <ul>

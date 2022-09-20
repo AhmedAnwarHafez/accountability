@@ -1,17 +1,22 @@
 import { createRouter } from './context'
+import { PrismaClient } from '@prisma/client'
 import { z } from 'zod'
 
+const prisma = new PrismaClient()
+
 export const studentsRouter = createRouter()
-  .query('hello', {
-    input: z
-      .object({
-        text: z.string().nullish(),
+  .mutation('attend', {
+    input: z.object({
+      id: z.number(),
+    }),
+    async resolve({ input }) {
+      const studentId = input?.id
+      await prisma.attendances.create({
+        data: {
+          student_id: studentId,
+        },
       })
-      .nullish(),
-    resolve({ input }) {
-      return {
-        greeting: `Hello ${input?.text ?? 'world'}`,
-      }
+      return
     },
   })
   .query('getAll', {
