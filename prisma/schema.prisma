@@ -8,6 +8,14 @@ datasource db {
 }
 
 model Students {
-    id   Int    @id @default(autoincrement())
-    name String @unique
+    id         Int           @id @default(autoincrement())
+    name       String        @unique
+    Attendance Attendances[]
+}
+
+model Attendances {
+    id          Int       @id @default(autoincrement())
+    student_id  Int
+    attended_at DateTime  @default(now())
+    Students    Students? @relation(fields: [student_id], references: [id])
 }
