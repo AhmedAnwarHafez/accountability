@@ -9,7 +9,7 @@ export const studentsRouter = createRouter()
   .mutation('attend', {
     input: z.object({
       name: z.string(),
-      cohort: z.string().nullable(),
+      cohort: z.number().nullable(),
       token: z.string(),
     }),
     async resolve({ input }) {
