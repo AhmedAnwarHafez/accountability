@@ -1,28 +1,44 @@
 import { createRouter } from './context'
 import { PrismaClient } from '@prisma/client'
 import { z } from 'zod'
+import jwt from 'jsonwebtoken'
+import moment from 'moment'
 
 const prisma = new PrismaClient()
 
 export const studentsRouter = createRouter()
   .mutation('attend', {
     input: z.object({
-      id: z.number(),
+      name: z.string(),
+      cohort: z.string().nullable(),
+      token: z.string(),
     }),
     async resolve({ input }) {
-      const studentId = input?.id
-      await prisma.attendances.create({
-        data: {
-          student_id: studentId,
-        },
-      })
+      const t = jwt.verify(input.token, 'secret') as jwt.JwtPayload
+      const iat = t.iat as number
+      const now = moment()
+      const diff = now.diff(iat, 'hour')
+      console.log(diff)
+
+      const { name, cohort } = input
+      console.log({ name, cohort })
+
+      // const studentId = input?.id
+      // await prisma.attendances.create({
+      //   data: {
+      //     student_id: studentId,
+      //   },
+      // })
       return
     },
   })
   .query('getAll', {
     async resolve({ ctx }) {
-      return await ctx.prisma.students.findMany({
-        orderBy: [{ name: 'asc' }],
+      const token = jwt.sign({ foo: 'bar' }, 'secret', {
+        expiresIn: 10,
       })
+      return {
+        token,
+      }
     },
   })

@@ -1,32 +1,58 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
+import Image from 'next/image'
+import QRCode from 'react-qr-code'
+
 import { trpc } from '../utils/trpc'
 
-const Home: NextPage = () => {
-  const { data } = trpc.useQuery(['students.getAll'])
-  const mutation = trpc.useMutation('students.attend')
+type Props = { host: string | null }
 
-  const handleClick = (id: number) => {
-    mutation.mutate({ id })
-  }
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => ({ props: { host: context.req.headers.host || null } })
+
+const Home: NextPage<Props> = ({ host }) => {
+  const { data } = trpc.useQuery(['students.getAll'])
+
+  const url = `http://192.168.1.71:3000/signInForm?token=${data?.token}`
 
   return (
     <>
-      <h1 className="text-2xl md:text-2xl text-center mt-10 leading-normal font-extrabold text-gray-700">
-        morning accountability
-      </h1>
-      <main className="container mx-auto flex flex-col items-center justify-around min-h-screen p-4">
-        <section>
-          <ul className="flex flex-col">
-            {data?.map(({ id, name }) => (
-              <li
-                key={id}
-                className="text-3xl text-center rounded-lg p-10 my-5 border-2 border-solid border-slate-600"
-                onClick={() => handleClick(id)}
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
+      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen">
+        <Image
+          src="/pattern.png"
+          alt="the badge for dev academey"
+          width={'500'}
+          height={'100'}
+          layout="fixed"
+        />
+        <section className="flex justify-center items-center">
+          <Image
+            src="/badge.png"
+            alt="the badge for dev academey"
+            width={'100'}
+            height={'100'}
+            layout="fixed"
+          />
+          <h1 className="text-5xl md:text-3xl text-center font-mono text-gray-700">
+            Dev Academy Aotearoa
+          </h1>
+        </section>
+
+        <Image
+          src="/pattern.png"
+          alt="the badge for dev academey"
+          width={'500'}
+          height={'100'}
+          layout="fixed"
+        />
+        <p className="text-xl my-2">Please scan QR Code</p>
+        <section
+          style={{
+            height: 'auto',
+            margin: '0 auto',
+          }}
+        >
+          <QRCode size={256} value={url} viewBox={`0 0 256 256`} />
         </section>
       </main>
     </>
