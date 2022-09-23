@@ -1,7 +1,6 @@
 import { createRouter } from './context'
 import { PrismaClient } from '@prisma/client'
 import { z } from 'zod'
-import jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient()
 
