@@ -41,7 +41,7 @@ const SignIn: NextPage = () => {
   }
 
   return (
-    <main className="w-full  bg-ultraviolet  text-2xl bg-contain bg-no-repeat bg-right-top bg-[url('/white-pattern.png')]">
+    <main className="w-full bg-ultraviolet  text-2xl">
       <form
         className="mx-auto min-h-screen flex flex-col justify-evenly gap-4 p-8 shadow-md rounded"
         onSubmit={handleSubmit}
