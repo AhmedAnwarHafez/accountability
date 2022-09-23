@@ -25,8 +25,13 @@ export const studentsRouter = createRouter()
       return
     },
   })
-  .query('getAll', {
+  .query('getCohorts', {
     async resolve({ ctx }) {
+      return await prisma.cohorts.findMany()
+    },
+  })
+  .query('getToken', {
+    async resolve() {
       const token = jwt.sign({ foo: 'bar' }, 'secret', {
         expiresIn: 10,
       })
