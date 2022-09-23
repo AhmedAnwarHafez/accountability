@@ -6,7 +6,7 @@ import { trpc } from '../utils/trpc'
 
 const SignIn: NextPage = () => {
   const [form, setForm] = useState<FormType>({ name: '', type: 'student' })
-  const { query } = useRouter()
+  const router = useRouter()
 
   const { data } = trpc.useQuery(['students.getCohorts'])
   const mutation = trpc.useMutation('students.attend')
@@ -15,6 +15,7 @@ const SignIn: NextPage = () => {
     const storage = localStorage.getItem('signIn')
     if (storage) {
       setForm(JSON.parse(storage))
+      // router.push('/thankYou')
     }
   }, [])
 
@@ -34,11 +35,11 @@ const SignIn: NextPage = () => {
     e.preventDefault()
     localStorage.setItem('signIn', JSON.stringify(form))
 
-    if (form.name && query.token) {
+    if (form.name && router.query.token) {
       mutation.mutate({
         name: form.name,
-        cohort: 'pohu',
-        token: query.token as string,
+        cohort: form.cohort as number,
+        token: router.query.token as string,
       })
     }
   }
