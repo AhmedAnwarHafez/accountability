@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => ({ props: { host: context.req.headers.host || null } })
 
 const Home: NextPage<Props> = ({ host }) => {
-  const { data } = trpc.useQuery(['students.getAll'])
+  const { data } = trpc.useQuery(['students.getToken'])
 
   const url = `https://${host}/signInForm?token=${data?.token}`
 
