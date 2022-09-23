@@ -1,3 +1,11 @@
+## Setup
+```sh
+npm i
+npx prisma db push
+npm run seed
+npm run dev
+```
+
 ## User stories
 
 As a new student, I want to be able to scan a QR code and fill in my name and cohort.
