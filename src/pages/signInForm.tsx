@@ -41,13 +41,6 @@ const SignIn: NextPage = () => {
 
   return (
     <main className="container mx-auto flex flex-col items-center justify-center mt-10  p-4">
-      <Image
-        src="/badge.png"
-        alt="the badge for dev academey"
-        width={'100rem'}
-        height={'100rem'}
-        className=" mb-[-40px] z-20"
-      />
       <form
         className=" flex flex-col gap-4 p-8"
         onSubmit={handleSubmit}
