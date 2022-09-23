@@ -8,35 +8,40 @@ const prisma = new PrismaClient()
 export const studentsRouter = createRouter()
   .mutation('attend', {
     input: z.object({
+      visitor_id: z.number().nullish(),
       name: z.string(),
-      cohort: z.number().nullable(),
+      cohort: z.number().nullish(),
       token: z.string(),
     }),
     async resolve({ input }) {
-      const { name, cohort } = input
-      console.log({ name, cohort })
+      if (!input.visitor_id) {
+        const student = await prisma.students.findFirstOrThrow({
+          where: {
+            AND: [
+              { name: { contains: input.name || undefined } },
+              { cohort_id: input.cohort || undefined },
+            ],
+          },
+        })
 
-      // const studentId = input?.id
-      // await prisma.attendances.create({
-      //   data: {
-      //     student_id: studentId,
-      //   },
-      // })
-      return
+        await prisma.attendances.create({
+          data: {
+            student_id: student.id,
+          },
+        })
+
+        return student
+      } else {
+        return await prisma.attendances.create({
+          data: {
+            student_id: input.visitor_id,
+          },
+        })
+      }
     },
   })
   .query('getCohorts', {
     async resolve({ ctx }) {
       return await prisma.cohorts.findMany()
-    },
-  })
-  .query('getToken', {
-    async resolve() {
-      const token = jwt.sign({ foo: 'bar' }, 'secret', {
-        expiresIn: 10,
-      })
-      return {
-        token,
-      }
     },
   })
