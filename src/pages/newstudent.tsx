@@ -51,11 +51,11 @@ const SignIn: NextPage = () => {
           <input
             type="text"
             name="name"
-            className="w-3/4 p-2 mx-auto font-bold text-center text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
+            className="w-64 p-2 mx-auto font-bold text-center text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
             onChange={handleNameChange}
             value={form.name}
             required
-            placeholder="enter your name"
+            placeholder="Enter your name"
           />
         </fieldset>
         <fieldset className="mx-auto">
@@ -64,7 +64,7 @@ const SignIn: NextPage = () => {
             name="cohort"
             id="cohort"
             onChange={handleCohort}
-            className="px-4"
+            className="w-64 px-2 text-slate-700"
           >
             <option key={0} value="">
               Your cohort
