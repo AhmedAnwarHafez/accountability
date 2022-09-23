@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 const Home: NextPage<Props> = ({ host }) => {
   const { data } = trpc.useQuery(['students.getAll'])
 
-  const url = `http://192.168.1.71:3000/signInForm?token=${data?.token}`
+  const url = `https://${host}/signInForm?token=${data?.token}`
 
   return (
     <>
