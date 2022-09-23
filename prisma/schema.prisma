@@ -11,6 +11,8 @@ model Students {
     id         Int           @id @default(autoincrement())
     name       String        @unique
     Attendance Attendances[]
+    cohort_id Int
+    Cohorts Cohorts? @relation(fields: [cohort_id], references: [id])
 }
 
 model Attendances {
@@ -18,4 +20,10 @@ model Attendances {
     student_id  Int
     attended_at DateTime  @default(now())
     Students    Students? @relation(fields: [student_id], references: [id])
+}
+
+model Cohorts {
+    id   Int    @id @default(autoincrement())
+    name String
+    Students Students[]
 }
