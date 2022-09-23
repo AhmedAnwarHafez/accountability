@@ -14,12 +14,6 @@ export const studentsRouter = createRouter()
       token: z.string(),
     }),
     async resolve({ input }) {
-      const t = jwt.verify(input.token, 'secret') as jwt.JwtPayload
-      const iat = t.iat as number
-      const now = moment()
-      const diff = now.diff(iat, 'hour')
-      console.log(diff)
-
       const { name, cohort } = input
       console.log({ name, cohort })
 
