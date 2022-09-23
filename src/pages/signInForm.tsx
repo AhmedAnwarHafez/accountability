@@ -57,6 +57,7 @@ const SignIn: NextPage = () => {
             className="w-3/4 p-2 mx-auto font-bold text-center text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
             onChange={handleNameChange}
             value={form.name}
+            required
             placeholder="enter your name"
           />
         </fieldset>
@@ -92,7 +93,10 @@ const SignIn: NextPage = () => {
           </div>
         </fieldset>
         <fieldset className="mx-auto">
-          <select name="cohort" id="cohort" onChange={handleCohort}>
+          <select required name="cohort" id="cohort" onChange={handleCohort}>
+            <option key={0} value=''>
+              Your cohort
+            </option>
             {data?.map((cohort) => (
               <option key={cohort.id} value={cohort.id}>
                 {cohort.name}
