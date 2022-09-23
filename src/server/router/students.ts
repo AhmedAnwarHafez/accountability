@@ -5,6 +5,19 @@ import { z } from 'zod'
 const prisma = new PrismaClient()
 
 export const studentsRouter = createRouter()
+  .mutation('new', {
+    input: z.object({
+      name: z.string(),
+      cohort: z.number(),
+      year: z.number(),
+      token: z.string(),
+    }),
+    async resolve({ input }) {
+      return await prisma.students.create({
+        data: input,
+      })
+    },
+  })
   .mutation('attend', {
     input: z.object({
       visitor_id: z.number().nullish(),
