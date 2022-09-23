@@ -38,7 +38,6 @@ const SignIn: NextPage = () => {
 
     if (form.name && router.query.token) {
       mutation.mutate({
-        visitor_id: form.visitorId as number,
         name: form.name,
         cohort: form.cohort as number,
         token: router.query.token as string,
