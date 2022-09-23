@@ -13,7 +13,7 @@ const SignIn: NextPage = () => {
   useEffect(() => {
     const storage = localStorage.getItem('signIn')
     if (storage) {
-      // setForm(JSON.parse(storage))
+      setForm(JSON.parse(storage))
     }
   }, [])
 
