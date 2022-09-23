@@ -10,9 +10,9 @@ datasource db {
 model Students {
     id         Int           @id @default(autoincrement())
     name       String        @unique
-    Attendance Attendances[]
-    cohort_id Int
-    Cohorts Cohorts? @relation(fields: [cohort_id], references: [id])
+    cohort_id  Int
+    Cohorts    Cohorts?      @relation(fields: [cohort_id], references: [id])
+    Attendances Attendances[]
 }
 
 model Attendances {
@@ -23,7 +23,13 @@ model Attendances {
 }
 
 model Cohorts {
-    id   Int    @id @default(autoincrement())
-    name String
+    id       Int        @id @default(autoincrement())
+    name     String
     Students Students[]
+}
+
+model Visitors {
+    id          Int      @id @default(autoincrement())
+    name        String   @unique
+    attended_at DateTime @default(now())
 }
