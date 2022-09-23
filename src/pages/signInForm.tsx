@@ -8,6 +8,7 @@ const SignIn: NextPage = () => {
   const [form, setForm] = useState<FormType>({ name: '', type: 'student' })
   const { query } = useRouter()
 
+  const { data } = trpc.useQuery(['students.getCohorts'])
   const mutation = trpc.useMutation('students.attend')
 
   useEffect(() => {
@@ -25,6 +26,10 @@ const SignIn: NextPage = () => {
     setForm((state) => ({ ...state, type: e.target.value }))
   }
 
+  const handleCohort = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setForm((state) => ({ ...state, cohort: +e.target.value }))
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     localStorage.setItem('signIn', JSON.stringify(form))
@@ -39,7 +44,7 @@ const SignIn: NextPage = () => {
   }
 
   return (
-    <main className="w-full  bg-ultraviolet text-white text-2xl bg-contain bg-no-repeat bg-right-top bg-[url('/white-pattern.png')]">
+    <main className="w-full  bg-ultraviolet  text-2xl bg-contain bg-no-repeat bg-right-top bg-[url('/white-pattern.png')]">
       <form
         className="mx-auto min-h-screen flex flex-col justify-evenly gap-4 p-8 shadow-md rounded"
         onSubmit={handleSubmit}
@@ -50,14 +55,13 @@ const SignIn: NextPage = () => {
             type="text"
             name="name"
             className="w-3/4 p-2 mx-auto font-bold text-center text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
-
             onChange={handleNameChange}
             value={form.name}
             placeholder="enter your name"
           />
         </fieldset>
-        <fieldset className="text-center flex flex-col items-start mx-auto">
-          <p className='mb-2'>Purpose of visit</p>
+        <fieldset className="text-center text-white flex flex-col items-start mx-auto">
+          <p className="mb-2">Purpose of visit</p>
           <div className="flex items-baseline">
             <input
               type="radio"
@@ -87,6 +91,15 @@ const SignIn: NextPage = () => {
             </label>
           </div>
         </fieldset>
+        <fieldset className="mx-auto">
+          <select name="cohort" id="cohort" onChange={handleCohort}>
+            {data?.map((cohort) => (
+              <option key={cohort.id} value={cohort.id}>
+                {cohort.name}
+              </option>
+            ))}
+          </select>
+        </fieldset>
 
         <button className="mx-auto my-4 w-3/4 h-24 text-white font-bold tracking-widest bg-yellow rounded-3xl">
           Sign-In
@@ -99,6 +112,7 @@ const SignIn: NextPage = () => {
 type FormType = {
   name?: string
   type?: string
+  cohort?: number
 }
 
 export default SignIn
