@@ -34,11 +34,4 @@ const SignIn: NextPage = () => {
   )
 }
 
-type FormType = {
-  visitorId?: number
-  name?: string
-  type?: string
-  cohort?: number
-}
-
 export default SignIn
