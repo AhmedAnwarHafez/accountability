@@ -52,9 +52,9 @@ const SignIn: NextPage = () => {
           I am a new student
         </a>
       </Link>
-      <Link href="/newstudent">
+      <Link href="/visitor">
         <a className="text-center bg-yellow text-slate-700 rounded-full mx-auto p-6 m-4 w-72">
-        I am a visitor
+          I am a visitor
         </a>
       </Link>
     </main>
