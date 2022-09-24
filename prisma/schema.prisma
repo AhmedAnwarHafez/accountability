@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Students {
-    id         Int           @id @default(autoincrement())
-    name       String        @unique
-    cohort_id  Int
-    Cohorts    Cohorts?      @relation(fields: [cohort_id], references: [id])
+    id          Int           @id @default(autoincrement())
+    name        String        @unique
+    cohort_id   Int
+    year        Int
+    Cohorts     Cohorts?      @relation(fields: [cohort_id], references: [id])
     Attendances Attendances[]
 }
 
