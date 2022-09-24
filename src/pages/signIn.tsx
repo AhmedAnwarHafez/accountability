@@ -6,44 +6,17 @@ import React, { useEffect, useState } from 'react'
 import { trpc } from '../utils/trpc'
 
 const SignIn: NextPage = () => {
-  const [form, setForm] = useState<FormType>({ name: '', type: 'student' })
   const router = useRouter()
-
-  const { data } = trpc.useQuery(['students.getCohorts'])
-  const mutation = trpc.useMutation('students.attend')
+  const mutation = trpc.useMutation(['students.attend.as.an.existing.student'])
 
   useEffect(() => {
-    const storage = localStorage.getItem('signIn')
-    if (storage) {
-      setForm(JSON.parse(storage))
-      // router.push('/thankYou')
+    const id = localStorage.getItem('studentId')
+    if (id) {
+      const studentId = +id
+      mutation.mutate({ studentId: studentId })
+      router.push('/thankYou')
     }
   }, [])
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((state) => ({ ...state, name: e.target.value }))
-  }
-
-  const handlePersonTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((state) => ({ ...state, type: e.target.value }))
-  }
-
-  const handleCohort = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setForm((state) => ({ ...state, cohort: +e.target.value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    localStorage.setItem('signIn', JSON.stringify(form))
-
-    if (form.name && router.query.token) {
-      mutation.mutate({
-        name: form.name,
-        cohort: form.cohort as number,
-        token: router.query.token as string,
-      })
-    }
-  }
 
   return (
     <main className="w-full flex flex-col justify-center h-screen bg-ultraviolet  text-2xl">

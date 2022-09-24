@@ -18,6 +18,18 @@ export const studentsRouter = createRouter()
       })
     },
   })
+  .mutation('attend.as.an.existing.student', {
+    input: z.object({
+      studentId: z.number(),
+    }),
+    async resolve({ input }) {
+      await prisma.attendances.create({
+        data: {
+          student_id: input.studentId,
+        },
+      })
+    },
+  })
   .mutation('attend', {
     input: z.object({
       name: z.string(),
