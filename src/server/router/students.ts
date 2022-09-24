@@ -41,7 +41,7 @@ export const studentsRouter = createRouter()
         })
         return existingStudent.id
       } else {
-        const studentId = await prisma.students.create({
+        const student = await prisma.students.create({
           data: {
             name: input.name,
             cohort_id: input.cohort,
@@ -51,11 +51,11 @@ export const studentsRouter = createRouter()
 
         await prisma.attendances.create({
           data: {
-            student_id: studentId.id,
+            student_id: student.id,
           },
         })
 
-        return studentId
+        return student.id
       }
     },
   })
