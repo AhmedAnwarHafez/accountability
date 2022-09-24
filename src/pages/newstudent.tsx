@@ -37,6 +37,11 @@ const SignIn: NextPage = () => {
         cohort: form.cohort as number,
         token: router.query.token as string,
       })
+
+      const studentId = mutation.data
+      if (studentId) {
+        localStorage.setItem('studentId', studentId.toString())
+      }
     }
   }
 
