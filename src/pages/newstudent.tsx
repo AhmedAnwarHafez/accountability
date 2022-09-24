@@ -43,6 +43,8 @@ const SignIn: NextPage = () => {
         localStorage.setItem('studentId', studentId.toString())
       }
     }
+
+    router.push('/thankYou')
   }
 
   return (
