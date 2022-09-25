@@ -53,7 +53,7 @@ export const studentsRouter = createRouter()
     },
   })
   .query('getCohorts', {
-    async resolve({ ctx }) {
+    async resolve() {
       return await prisma.cohorts.findMany()
     },
   })
