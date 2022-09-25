@@ -9,39 +9,24 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => ({ props: { host: context.req.headers.host || null } })
 
 const Home: NextPage<Props> = ({ host }) => {
-
   const url = `https://${host}/signInForm`
 
   return (
     <>
-      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen">
-        <Image
-          src="/pattern.png"
-          alt="the badge for dev academey"
-          width={'500'}
-          height={'100'}
-          layout="fixed"
-        />
-        <section className="flex justify-center items-center">
+      <main className="container mx-auto flex flex-col items-center justify-center min-h-screen bg-softblue">
+        <section className="flex flex-col justify-center items-center">
           <Image
             src="/badge.png"
             alt="the badge for dev academey"
-            width={'100'}
-            height={'100'}
+            width={'250'}
+            height={'250'}
             layout="fixed"
           />
-          <h1 className="text-5xl md:text-3xl text-center font-mono text-gray-700">
+          <h1 className="text-5xl md:text-3xl text-center font-mono text-ultraviolet tracking-widest">
             Dev Academy Aotearoa
           </h1>
         </section>
 
-        <Image
-          src="/pattern.png"
-          alt="the badge for dev academey"
-          width={'500'}
-          height={'100'}
-          layout="fixed"
-        />
         <p className="text-xl my-2">Please scan QR Code</p>
         <section
           style={{
