@@ -38,17 +38,17 @@ const SignIn: NextPage = () => {
   }
 
   return (
-    <main className="w-full bg-ultraviolet  text-2xl">
+    <main className="w-full bg-softblue  text-2xl">
       <form
         className="mx-auto min-h-screen flex flex-col justify-evenly gap-4 p-8 shadow-md rounded"
         onSubmit={handleSubmit}
       >
-        <p className="text-center text-white tracking-widest">Sign-in Form</p>
+        <p className="text-center text-slate-100 font-semibold tracking-widest">Sign-in Form</p>
         <fieldset className="text-center flex flex-col gap-1">
           <input
             type="text"
             name="name"
-            className="w-64 p-2 mx-auto font-bold text-center text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
+            className="w-64 p-2 mx-auto font-bold text-2xl rounded-md border-solid border-2 border-slate-200 focus:outline-yellow text-ultraviolet "
             onChange={handleNameChange}
             value={form.name}
             required
@@ -61,7 +61,7 @@ const SignIn: NextPage = () => {
             name="cohort"
             id="cohort"
             onChange={handleCohort}
-            className="w-64 px-2 text-slate-700"
+            className="w-64 px-2 text-slate-700 rounded-md focus:outline-yellow"
           >
             <option key={0} value="">
               Your cohort
@@ -74,7 +74,7 @@ const SignIn: NextPage = () => {
           </select>
         </fieldset>
 
-        <button className="mx-auto my-4 w-3/4 h-24 text-white font-bold tracking-widest bg-yellow rounded-3xl">
+        <button className="mx-auto my-4 w-3/4 h-24 text-white font-bold tracking-widest bg-ultraviolet rounded-3xl">
           Sign-In
         </button>
       </form>
