@@ -15,23 +15,12 @@ const SignIn: NextPage = () => {
       const studentId = +id
       mutation.mutate({ studentId: studentId })
       router.push('/thankYou')
+    } else {
+      router.push('/newstudent')
     }
   }, [])
 
-  return (
-    <main className="w-full flex flex-col justify-center h-screen bg-ultraviolet  text-2xl">
-      <Link href="/newstudent">
-        <a className="text-center bg-yellow text-slate-700 rounded-full mx-auto p-6 m-4 w-72">
-          I am a new student
-        </a>
-      </Link>
-      <Link href="/visitor">
-        <a className="text-center bg-yellow text-slate-700 rounded-full mx-auto p-6 m-4 w-72">
-          I am a visitor
-        </a>
-      </Link>
-    </main>
-  )
+  return <></>
 }
 
 export default SignIn

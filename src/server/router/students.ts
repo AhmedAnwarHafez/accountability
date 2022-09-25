@@ -10,7 +10,6 @@ export const studentsRouter = createRouter()
       name: z.string(),
       cohort: z.number(),
       year: z.number(),
-      token: z.string(),
     }),
     async resolve({ input }) {
       return await prisma.students.create({
@@ -34,7 +33,6 @@ export const studentsRouter = createRouter()
     input: z.object({
       name: z.string(),
       cohort: z.number(),
-      token: z.string(),
     }),
     async resolve({ input }) {
       const student = await prisma.students.create({

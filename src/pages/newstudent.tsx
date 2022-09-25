@@ -31,13 +31,10 @@ const SignIn: NextPage = () => {
     e.preventDefault()
     localStorage.setItem('signIn', JSON.stringify(form))
 
-    if ( router.query.token) {
-      mutation.mutate({
-        name: form.name as string,
-        cohort: form.cohort as number,
-        token: router.query.token as string,
-      })
-    }
+    mutation.mutate({
+      name: form.name as string,
+      cohort: form.cohort as number,
+    })
   }
 
   return (
