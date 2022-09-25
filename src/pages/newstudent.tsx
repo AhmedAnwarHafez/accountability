@@ -12,12 +12,12 @@ const SignIn: NextPage = () => {
   const mutation = trpc.useMutation('students.attend')
 
   useEffect(() => {
-    const storage = localStorage.getItem('signIn')
-    if (storage) {
-      setForm(JSON.parse(storage))
-      // router.push('/thankYou')
+    const studentId = mutation.data
+    if (studentId) {
+      localStorage.setItem('studentId', studentId.toString())
+      router.push('/thankYou')
     }
-  }, [])
+  }, [mutation.isSuccess])
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((state) => ({ ...state, name: e.target.value }))
@@ -31,20 +31,13 @@ const SignIn: NextPage = () => {
     e.preventDefault()
     localStorage.setItem('signIn', JSON.stringify(form))
 
-    if (form.name && router.query.token) {
+    if ( router.query.token) {
       mutation.mutate({
-        name: form.name,
+        name: form.name as string,
         cohort: form.cohort as number,
         token: router.query.token as string,
       })
-
-      const studentId = mutation.data
-      if (studentId) {
-        localStorage.setItem('studentId', studentId.toString())
-      }
     }
-
-    router.push('/thankYou')
   }
 
   return (

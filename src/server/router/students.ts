@@ -37,38 +37,21 @@ export const studentsRouter = createRouter()
       token: z.string(),
     }),
     async resolve({ input }) {
-      const existingStudent = await prisma.students.findFirst({
-        where: {
-          cohort_id: input.cohort,
+      const student = await prisma.students.create({
+        data: {
           name: input.name,
+          cohort_id: input.cohort,
+          year: new Date().getFullYear(),
         },
       })
 
-      if (existingStudent) {
-        // student exists in db, a new attendance will be created then exit function
-        await prisma.attendances.create({
-          data: {
-            student_id: existingStudent.id,
-          },
-        })
-        return existingStudent.id
-      } else {
-        const student = await prisma.students.create({
-          data: {
-            name: input.name,
-            cohort_id: input.cohort,
-            year: new Date().getFullYear(),
-          },
-        })
+      await prisma.attendances.create({
+        data: {
+          student_id: student.id,
+        },
+      })
 
-        await prisma.attendances.create({
-          data: {
-            student_id: student.id,
-          },
-        })
-
-        return student.id
-      }
+      return student.id
     },
   })
   .query('getCohorts', {
