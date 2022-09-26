@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 import { trpc } from '../utils/trpc'
+import Cohorts from './components/Cohorts'
 
 const SignIn: NextPage = () => {
   const [form, setForm] = useState<FormType>({ name: '' })
@@ -43,7 +44,9 @@ const SignIn: NextPage = () => {
         className="mx-auto min-h-screen flex flex-col justify-evenly gap-4 p-8 shadow-md rounded"
         onSubmit={handleSubmit}
       >
-        <p className="text-center text-slate-100 font-semibold tracking-widest">Sign-in Form</p>
+        <p className="text-center text-slate-100 font-semibold tracking-widest">
+          Sign-in Form
+        </p>
         <fieldset className="text-center flex flex-col gap-1">
           <input
             type="text"
@@ -56,22 +59,7 @@ const SignIn: NextPage = () => {
           />
         </fieldset>
         <fieldset className="mx-auto">
-          <select
-            required
-            name="cohort"
-            id="cohort"
-            onChange={handleCohort}
-            className="w-64 px-2 text-slate-700 rounded-md focus:outline-yellow"
-          >
-            <option key={0} value="">
-              Your cohort
-            </option>
-            {data?.map((cohort) => (
-              <option key={cohort.id} value={cohort.id}>
-                {cohort.name}
-              </option>
-            ))}
-          </select>
+          {data && <Cohorts cohorts={data} handleCohort={handleCohort} />}
         </fieldset>
 
         <button className="mx-auto my-4 w-3/4 h-24 text-white font-bold tracking-widest bg-ultraviolet rounded-3xl">
