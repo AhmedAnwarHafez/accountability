@@ -1,14 +1,17 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { trpc } from '../utils/trpc'
 import Cohorts from './components/Cohorts'
 import Attendance from './components/Student'
 
-const date = new Date(Date.now() - 5 * 60 * 60 * 1000)
-
 const Dashboard: NextPage = () => {
   const [cohort, setCohort] = useState(0)
+  const [date, setDate] = useState(new Date())
+
+  useEffect(() => {
+    setDate(new Date())
+  }, [])
 
   const cohortsQuery = trpc.useQuery(['students.getCohorts'])
   const attendanceQuery = trpc.useQuery([
