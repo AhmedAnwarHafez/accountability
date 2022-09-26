@@ -5,9 +5,9 @@ import z from 'zod'
 const prisma = new PrismaClient()
 
 type Attendance = {
-  id: string
+  id: number
   name: string
-  inTheSpace: number
+  attended: number
 }
 
 export const attendanceReporter = createRouter().query('getAttendance', {
@@ -23,7 +23,7 @@ export const attendanceReporter = createRouter().query('getAttendance', {
     SELECT 
 	s.id
 	, s.name
-	, CASE WHEN max(a.attended_at) < ${+date} THEN 1 ELSE 0 END as inTheSpace
+	, CASE WHEN max(a.attended_at) < ${+date} THEN 1 ELSE 0 END as attended
 from students as s 
 LEFT OUTER join Attendances as a on s.id = a.student_id
 where s.cohort_id = ${cohortId}
