@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => ({ props: { host: context.req.headers.host || null } })
 
 const Home: NextPage<Props> = ({ host }) => {
-  const url = `https://${host}/signInForm`
+  const url = `https://${host}/signin`
 
   return (
     <>
