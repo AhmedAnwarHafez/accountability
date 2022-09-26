@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { trpc } from '../utils/trpc'
 import Cohorts from './components/Cohorts'
-import Attendance from './components/Student'
+import Attendances from './components/Attendances'
 
 const Dashboard: NextPage = () => {
   const [cohort, setCohort] = useState(0)
@@ -41,11 +41,11 @@ const Dashboard: NextPage = () => {
         </section>
         <p>({notAttendedStudents?.length}) Not Attended</p>
         {notAttendedStudents && (
-          <Attendance attendances={notAttendedStudents} style="text-yellow" />
+          <Attendances attendances={notAttendedStudents} style="text-yellow" />
         )}
         <p>({attendedStudents?.length}) Attended</p>
         {attendedStudents && (
-          <Attendance attendances={attendedStudents} style="text-slate-300" />
+          <Attendances attendances={attendedStudents} style="text-slate-300" />
         )}
       </main>
     </div>

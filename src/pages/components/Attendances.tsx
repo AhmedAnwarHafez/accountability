@@ -13,10 +13,10 @@ type Props = {
   style?: string
 }
 
-const Attendance: NextPage<Props> = ({ attendances, style }) => {
+const Attendances: NextPage<Props> = ({ attendances, style }) => {
   return (
     <ul className="flex flex-wrap justify-center">
-      {attendances.map((student) => (
+      {attendances?.map((student) => (
         <li
           key={student.id}
           className={`w-32 text-center bg-ultraviolet text-white rounded-3xl m-2 py-2 ${style}`}
@@ -30,4 +30,4 @@ const Attendance: NextPage<Props> = ({ attendances, style }) => {
   )
 }
 
-export default Attendance
+export default Attendances
