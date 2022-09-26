@@ -1,9 +1,11 @@
+import moment from 'moment'
 import type { NextPage } from 'next'
 
 type Attendance = {
   id: number
   name: string
   attended: number
+  attendedAt?: number
 }
 
 type Props = {
@@ -21,6 +23,7 @@ const Attendance: NextPage<Props> = ({ attendances, style }) => {
         >
           <p>{student.name}</p>
           <p>{student.attended}</p>
+          <p className='text-sm'>{student.attendedAt && moment(Number(student.attendedAt)).format('HH:MM')}</p>
         </li>
       ))}
     </ul>

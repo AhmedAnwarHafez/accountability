@@ -26,12 +26,13 @@ const Dashboard: NextPage = () => {
   const attendedStudents = attendanceQuery.data?.filter(
     (student) => Number(student.attended) === 1
   )
-  const notAttendedStudents = attendanceQuery.data?.filter(
-    (student) => Number(student.attended) === 0
-  )
+
+  const notAttendedStudents = attendanceQuery.data
+    ?.filter((student) => Number(student.attended) === 0)
+    .map(({ id, name, attended }) => ({ id, name, attended }))
 
   return (
-    <div className='h-screen bg-softblue'>
+    <div className="h-auto bg-softblue">
       <main className="flex flex-col gap-4 items-center justify-center text-xl">
         <section className="mt-6">
           {cohortsQuery.data && (
