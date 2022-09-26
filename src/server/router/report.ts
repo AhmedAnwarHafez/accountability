@@ -9,6 +9,7 @@ type Attendance = {
   id: number
   name: string
   attended: number
+  attendedAt: number
 }
 
 export const attendanceReporter = createRouter().query('getAttendance', {
@@ -27,6 +28,7 @@ export const attendanceReporter = createRouter().query('getAttendance', {
 	s.id
 	, s.name
 	, CASE WHEN ${+startOf} < max(a.attended_at) < ${+endOf} THEN 1 ELSE 0 END as attended
+  , max(a.attended_at) as attendedAt
 from students as s 
 LEFT OUTER join Attendances as a on s.id = a.student_id
 where s.cohort_id = ${cohortId}
