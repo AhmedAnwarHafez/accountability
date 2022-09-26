@@ -60,7 +60,7 @@ export const studentsRouter = createRouter()
   .query('getStudent', {
     input: z.object({ studentId: z.number() }),
     async resolve({ input }) {
-      return await prisma.students.findUniqueOrThrow({
+      return await prisma.students.findFirst({
         where: {
           id: input.studentId,
         },
